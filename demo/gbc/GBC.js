@@ -72,5 +72,6 @@ cpu.setOpcode(0x06, function (Opcode) {
 
 // Rotate Left Circular Accumulator
 cpu.setOpcode(0x07, function (Opcode) {
-    //
+    // im lazy ok
 });
+

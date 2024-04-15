@@ -46,9 +46,9 @@ var vCPU = (function () {
         this.pointer = 0;
         this.GPRegisters = [];
         this.Flags = {
-            Carry: 0,
-            
+            Carry: 0
         };
+        this.StackPointer = addrBits - 1;
         // event handlers
         this.__events__ = {};
         // onmemoryread and onmemorywrite events
@@ -62,6 +62,20 @@ var vCPU = (function () {
         this.opcodes = {};
         // our special register;
         this.SpecialRegister = new vRegister(8);
+    };
+    vCPU.prototype.incrementStackPointer = function () {
+        if(this.StackPointer < this.addressLines-1) {
+            this.StackPointer++
+        } else {
+            this.StackPointer = 0
+        }
+    };
+    vCPU.prototype.decreaseStackPointer = function () {
+        if(this.StackPointer > 0) {
+            this.StackPointer--
+        } else {
+            this.StackPointer = this.addressLines - 1;
+        }
     };
     vCPU.prototype.addEventListener = function(event, handle) {
         if(!this.__events__[event]) {
@@ -96,7 +110,7 @@ var vCPU = (function () {
         this.opcodes[opcode] = type;
     };
     vCPU.prototype.clock = function () {
-        if(this.pointer > Math.pow(2,this.addressLines)) {
+        if(this.pointer >= Math.pow(2,this.addressLines)) {
             // how the hell did that happen?
             this.pointer = 0;
         }

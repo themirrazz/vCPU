@@ -45,6 +45,10 @@ module.exports = (function () {
         // initalize the program counter, aka 'pointer'
         this.pointer = 0;
         this.GPRegisters = [];
+        this.Flags = {
+            Carry: 0
+        };
+        this.StackPointer = addrBits - 1;
         // event handlers
         this.__events__ = {};
         // onmemoryread and onmemorywrite events
@@ -58,6 +62,20 @@ module.exports = (function () {
         this.opcodes = {};
         // our special register;
         this.SpecialRegister = new vRegister(8);
+    };
+    vCPU.prototype.incrementStackPointer = function () {
+        if(this.StackPointer < this.addressLines-1) {
+            this.StackPointer++
+        } else {
+            this.StackPointer = 0
+        }
+    };
+    vCPU.prototype.decreaseStackPointer = function () {
+        if(this.StackPointer > 0) {
+            this.StackPointer--
+        } else {
+            this.StackPointer = this.addressLines - 1;
+        }
     };
     vCPU.prototype.addEventListener = function(event, handle) {
         if(!this.__events__[event]) {
@@ -92,7 +110,7 @@ module.exports = (function () {
         this.opcodes[opcode] = type;
     };
     vCPU.prototype.clock = function () {
-        if(this.pointer > Math.pow(2,this.addressLines)) {
+        if(this.pointer >= Math.pow(2,this.addressLines)) {
             // how the hell did that happen?
             this.pointer = 0;
         }
@@ -179,7 +197,44 @@ module.exports = (function () {
                     }
                     return arr;
                 },
-                Data: $value
+                Data: $value,
+                ToBinary: function (n) {
+                    var d = n.toString('2');
+                    if(d.length === 1) {
+                        return "0000000"+d;
+                    } else if(d.length === 2) {
+                        return "000000"+d;
+                    } else if(d.length === 3) {
+                        return "00000"+d;
+                    } else if(d.length === 4) {
+                        return "0000"+d;
+                    } else if(d.length === 5) {
+                        return "000"+d;
+                    } else if(d.length === 6) {
+                        return "00"+d;
+                    } else if(d.length === 7) {
+                        return "0"+d;
+                    }
+                    return d;
+                },
+                BitShiftLeft: function (n) {
+                    return n[1]+n[2]+n[3]+n[4]+n[5]+n[6]+n[7]+n[0]
+                },
+                BitShiftRight: function (n) {
+                    return n+[7]+n[0]+n[1]+n[2]+n[3]+n[4]+n[5]+n[6]
+                },
+                BitShiftLeftCarry: function (n, c) {
+                    return {
+                        bits: n[1]+n[2]+n[3]+n[4]+n[5]+n[6]+n[7]+c,
+                        carry: n[0]
+                    }
+                },
+                BitShiftRightCarry: function (n, c) {
+                    return {
+                        bits: c+n[0]+n[1]+n[2]+n[3]+n[4]+n[5]+n[6],
+                        carry: n[7]
+                    }
+                },
             });
         } catch (error) {
             // the manufacturing company did a bad job
