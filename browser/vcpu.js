@@ -172,7 +172,7 @@ var vCPU = (function () {
                     }
                     return arr;
                 },
-                data: $value
+                Data: $value
             });
         } catch (error) {
             // the manufacturing company did a bad job
