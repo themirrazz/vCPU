@@ -170,8 +170,7 @@ modules.export = (function () {
                         }
                     }
                     return arr;
-                },
-                data: self.onmemoryread(self.pointer)
+                }
             });
         } catch (error) {
             // the manufacturing company did a bad job
