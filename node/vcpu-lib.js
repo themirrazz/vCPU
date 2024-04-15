@@ -91,7 +91,8 @@ modules.export = (function () {
         }
         var self = this;
         var cb = this.comebackOpcode;
-        var op = cb || this.opcodes[this.onmemoryread(this.pointer)];
+        var $value = this.onmemoryread(this.pointer)
+        var op = cb || this.opcodes[$value];
         if(!op) {
             op = function () {};
         }
@@ -170,7 +171,8 @@ modules.export = (function () {
                         }
                     }
                     return arr;
-                }
+                },
+                data: $value;
             });
         } catch (error) {
             // the manufacturing company did a bad job

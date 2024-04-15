@@ -11,4 +11,8 @@ cpu.addRegister(8); // Register G
 cpu.addRegister(8); // Register H
 
 // Load BC,d16
-cpu.setOpcode(0x01, function (opcode) {});
+cpu.setOpcode(0x01, function (Opcode) {
+    Opcode.SetComebackFunction(function (Comeback0) {
+        Comeback0.Regis
+    });
+});
