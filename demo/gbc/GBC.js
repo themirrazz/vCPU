@@ -10,6 +10,9 @@ cpu.addRegister(8); // Register F [5]
 cpu.addRegister(8); // Register G [6]
 cpu.addRegister(8); // Register H [7]
 
+// system registers
+cpu.addRegister(8) // SYSTEM REGISTER [8]
+
 // Load BC,d16
 cpu.setOpcode(0x01, function (Opcode) {
     Opcode.SetComebackFunction(function (Comeback0) {
@@ -61,4 +64,11 @@ cpu.setOpcode(0x05, function (Opcode) {
         dataB--
     }
     Opcode.Registers[1].data = Number('0x'+Opcode.ToHex(dataB));
+});
+
+// Load B,d8
+cpu.setOpcode(0x06, function (Opcode) {
+    Opcode.SetComebackFunction(function (Comeback0) {
+        Comeback0.Registers[1].data = Comeback0.Data;
+    });
 });
