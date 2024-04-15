@@ -172,7 +172,7 @@ modules.export = (function () {
                     }
                     return arr;
                 },
-                data: $value;
+                data: $value
             });
         } catch (error) {
             // the manufacturing company did a bad job
