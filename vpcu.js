@@ -90,6 +90,9 @@ var vCPU = (function () {
         var self = this;
         var cb = this.comebackOpcode;
         var op = cb || this.opcodes[this.onmemoryread(this.pointer)];
+        if(!op) {
+            op = function () {};
+        }
         if(cb) {
             // prevent harmful infinite looping
             this.comebackOpcode = undefined;
@@ -111,7 +114,7 @@ var vCPU = (function () {
                     return self.comebackOpcode = func;
                 },
                 Registers: self.GPRegisters
-            })
+            });
         } catch (error) {
             // the manufacturing company did a bad job
             this.clock = function () {
@@ -128,6 +131,10 @@ var vCPU = (function () {
                 // does it matter? the cpu's already fried www
                 return;
             }
+        }
+        this.pointer ++;
+        if(this.pointer > Math.pow(2,this.bits)) {
+            this.pointer = 0;
         }
     };
     return vCPU;
