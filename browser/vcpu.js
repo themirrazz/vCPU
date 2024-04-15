@@ -117,8 +117,56 @@ var vCPU = (function () {
                 },
                 Registers: self.GPRegisters,
                 SetPointer: function (d) {
-                    // the pointer will increment so clever workaround
-                    self.pointer = d-1;
+                    // it will automatically get incremented 1 more
+                    d = d - 1;
+                    if(d < 0) {
+                        // this is as low as you can go
+                        self.pointer = -1;
+                    } else {
+                        while(d > Math.pow(2,self.bits)) {
+                            // no memory leaks, okay!
+                            d = d - Math.pow(2,self.bits);
+                        }
+                        if(d < 0) {
+                            // I legit don't know how that happened
+                            self.pointer = -1;
+                        } else {
+                            self.pointer = d;
+                        }
+                    }
+                },
+                ToHex: function (n) {
+                    if(Math.floor(n)!==n || n < 0 || n > 255) {
+                        throw new TypeError();
+                    }
+                    var hex = n.toString(16);
+                    if(hex.length === 1) {
+                        return '0'+hex;
+                    } else {
+                        return hex;
+                    }
+                },
+                SplitHex: function (n) {
+                    // split hex numbers apart into groups of one byte
+                    // very useful function indeed
+                    if(Math.floor(n)!==n || n < 0) {
+                        throw new TypeError();
+                    }
+                    var hex = n.toString(16);
+                    if(Math.floor(hex/2)!==hex/2) {
+                        // only time 0 is omitted is beginning
+                        hex = "0"+hex;
+                    }
+                    var arr = [];
+                    var d = '';
+                    for(var i = 0; i < hex.length; i++) {
+                        if(Math.floor(i/2) === i/2) {
+                            d = hex[i];
+                        } else {
+                            arr.push(d+hex[i]);
+                        }
+                    }
+                    return arr;
                 }
             });
         } catch (error) {
