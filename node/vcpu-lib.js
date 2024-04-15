@@ -1,6 +1,6 @@
 // vCPU 0.0.1 Stable Release
 // (c) themirrazz 2024
-modules.export = (function () {
+module.exports = (function () {
     var vCPUEvent = function () {
         this.trusted = true;
         this.cancelBubbles = false;
@@ -26,7 +26,7 @@ modules.export = (function () {
     vRegister.prototype.set = function (data) {
         return this.data = data;
     };
-    var vCPU = function (bits) {
+    var vCPU = function (bits, addrBits) {
         // if they don't pick we like 16 bits
         if(!bits) {
             bits = 16;
@@ -35,6 +35,13 @@ modules.export = (function () {
             throw new TypeError("the amount of bits must be an integer number that is greater than 0");
         }
         this.bits = bits;
+        if(!addrBits) {
+            addrBits = bits;
+        }
+        if(typeof addrBits != 'number' || addrBits < 1 || addrBits !== Math.floor(addrBits)) {
+            throw new TypeError("the amount of bits must be an integer number that is greater than 0");
+        }
+        this.addressLines = addrBits;
         // initalize the program counter, aka 'pointer'
         this.pointer = 0;
         this.GPRegisters = [];
@@ -85,7 +92,7 @@ modules.export = (function () {
         this.opcodes[opcode] = type;
     };
     vCPU.prototype.clock = function () {
-        if(this.pointer > Math.pow(2,this.bits)) {
+        if(this.pointer > Math.pow(2,this.addressLines)) {
             // how the hell did that happen?
             this.pointer = 0;
         }
@@ -192,7 +199,7 @@ modules.export = (function () {
             }
         }
         this.pointer ++;
-        if(this.pointer > Math.pow(2,this.bits)) {
+        if(this.pointer > Math.pow(2,this.addressLines)) {
             this.pointer = 0;
         }
     };
