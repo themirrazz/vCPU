@@ -135,6 +135,9 @@ var vCPU = (function () {
                         }
                     }
                 },
+                GetPointer: function (d) {
+                    return self.pointer;
+                },
                 ToHex: function (n) {
                     if(Math.floor(n)!==n || n < 0 || n > 255) {
                         throw new TypeError();
