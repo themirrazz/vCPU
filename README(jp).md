@@ -3,11 +3,11 @@
 ## vCPUは何？
 vCPU is library that can be used to emulate literally almost any CPU in the world in pure JavaScript. This library can run in either NodeJS or your browser.
 
-## How do I add an opcode to a virtual CPU?
+## どうvCPUにオップコードをアッドして?
 Each opcodes are setup with opcode functions and opcode comeback functions.
 I'm not going to detail it here, but if you would like to get started with this library, please check out the [documentation](/devdocs/en).
 
-## I want to build a virtual CPU with 2 or more cores. Is this possible?
+## 2かもっとコアーでvCPUを作りたい。できるか?
 Yes! Please keep in mind as of version 0.0.1, there is no standardized way of setting a CPU id.
 This must be done in the opcodes; and therefore, requires a different set of opcodes per CPU core.
 Each CPU model is different, so you won't find this in our devdocs.
