@@ -113,7 +113,11 @@ var vCPU = (function () {
                 SetComebackFunction: function (func) {
                     return self.comebackOpcode = func;
                 },
-                Registers: self.GPRegisters
+                Registers: self.GPRegisters,
+                SetPointer: function (d) {
+                    // the pointer will increment so clever workaround
+                    self.pointer = d-1;
+                }
             });
         } catch (error) {
             // the manufacturing company did a bad job
