@@ -33,23 +33,32 @@ cpu.setOpcode(0x02, function (Opcode) {
 cpu.setOpcode(0x03, function (Opcode) {
     var dataB = Opcode.Registers[1].data;
     var dataC = Opcode.Registers[2].data;
-    if(dataC > 0xFE) {
+    if(dataC < 0xFF) {
+        dataC++;
+    } else {
         dataC = 0x00;
         if(dataB < 0xFF) {
             dataB++;
         }
-    } else {
-        dataC++;
     }
     Opcode.Registers[1].data = Number('0x'+Opcode.ToHex(dataB));
     Opcode.Registers[2].data = Number('0x'+Opcode.ToHex(dataC));
 });
 
 // Increment B
-cpu.setOpcode(0x03, function (Opcode) {
+cpu.setOpcode(0x04, function (Opcode) {
     var dataB = Opcode.Registers[1].data;
     if(dataB < 0xFF) {
         dataB++
+    }
+    Opcode.Registers[1].data = Number('0x'+Opcode.ToHex(dataB));
+});
+
+// Decrease B
+cpu.setOpcode(0x05, function (Opcode) {
+    var dataB = Opcode.Registers[1].data;
+    if(dataB > 0x00) {
+        dataB--
     }
     Opcode.Registers[1].data = Number('0x'+Opcode.ToHex(dataB));
 });
