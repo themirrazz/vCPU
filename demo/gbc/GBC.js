@@ -1,6 +1,6 @@
 
-// we create a new CPU
-var cpu = new vCPU(8);
+// we create a new 8-bit CPU with 16 address lines
+var cpu = new vCPU(8, 16);
 cpu.addRegister(8); // Register A [0]
 cpu.addRegister(8); // Register B [1]
 cpu.addRegister(8); // Register C [2]
@@ -18,4 +18,38 @@ cpu.setOpcode(0x01, function (Opcode) {
             Comeback0.Registers[2].data = Comeback0.Data;
         });
     });
+});
+
+// Load (BC),A
+cpu.setOpcode(0x02, function (Opcode) {
+    var dataB = Opcode.ToHex(Opcode.Registers[1].data);
+    var dataC = Opcode.ToHex(Opcode.Registers[2].data);
+    var dataA = Opcode.Registers[0].data;
+    var address = Number('0x'+dataB+dataC);
+    Opcode.WriteMemory(address, dataA);
+});
+
+// Increment BC
+cpu.setOpcode(0x03, function (Opcode) {
+    var dataB = Opcode.Registers[1].data;
+    var dataC = Opcode.Registers[2].data;
+    if(dataC > 0xFE) {
+        dataC = 0x00;
+        if(dataB < 0xFF) {
+            dataB++;
+        }
+    } else {
+        dataC++;
+    }
+    Opcode.Registers[1].data = Number('0x'+Opcode.ToHex(dataB));
+    Opcode.Registers[2].data = Number('0x'+Opcode.ToHex(dataC));
+});
+
+// Increment B
+cpu.setOpcode(0x03, function (Opcode) {
+    var dataB = Opcode.Registers[1].data;
+    if(dataB < 0xFF) {
+        dataB++
+    }
+    Opcode.Registers[1].data = Number('0x'+Opcode.ToHex(dataB));
 });
