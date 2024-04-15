@@ -1,3 +1,5 @@
+// vCPU 0.0.1 Stable Release
+// (c) themirrazz 2024
 var vCPU = (function () {
     var vCPUEvent = function () {
         this.trusted = true;
