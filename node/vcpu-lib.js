@@ -142,6 +142,15 @@ module.exports = (function () {
                     return self.comebackOpcode = func;
                 },
                 Registers: self.GPRegisters,
+                GetStackPointer: function () {
+                    return self.StackPointer
+                },
+                IncreaseStackPointer: function () {
+                    return self.incrementStackPointer()
+                },
+                DecreaseStackPointer: function () {
+                    return self.decreaseStackPointer()
+                },
                 SetPointer: function (d) {
                     // it will automatically get incremented 1 more
                     d = d - 1;
