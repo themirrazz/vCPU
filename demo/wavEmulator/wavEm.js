@@ -8,7 +8,12 @@ var data = 0;
 
 var WAV = [];
 var PROGRAM = [];
-WAV.forEach(CHUNK => {});
+WAV.forEach(CHUNK => {
+    PROGRAM.push(0x92);
+    PROGRAM.push(CHUNK);
+    PROGRAM.push(0xFF);
+    PROGRAM.push(0xFF);
+});
 
 // LD d8,(d16)
 cpu.setOpcode(0x92, function(Opcode) {
@@ -18,12 +23,13 @@ cpu.setOpcode(0x92, function(Opcode) {
             var k = c1.value.toString('16');
             if(k.length === 1) { k = '0'+k }
             Opcode.SetComebackFunction(function (c2) {
-                var k = c1.value.toString('16');
-                if(k.length === 1) { k = '0'+k }
+                var q = c1.value.toString('16');
+                if(q.length === 1) { k = '0'+k }
+                c2.WriteMemory(Number('0x'+k+q), d8);
             });
         });
     });
-})
+});
 
 cpu.onmemorywrite = function (event) {
     if(event.address === 0xFFFF) {
