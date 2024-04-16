@@ -177,4 +177,4 @@ function GenerateSineWave(hertz) {
 
 setInterval(function () {
     GenerateSineWave(freq);
-},0.25);
+},250);
