@@ -1,4 +1,5 @@
 // help from https://stackoverflow.com/questions/34708980/generate-sine-wave-and-play-it-in-the-browser
+// help from https://stackoverflow.com/questions/24151121/how-to-play-wav-audio-byte-array-via-javascript-html5
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
@@ -10689,3 +10690,36 @@ cpu.onmemoryread = function (event) {
     }
     return 0x00
 };
+
+var audio = new AudioContext();
+var gbuffer = new Uint8Array[];
+
+
+function playByteArray(byte) {
+    var byteArray = [];
+    for(var k = 0; k < 10000; k++) {
+        byteArray.push(byte);
+    }
+    var arrayBuffer = new ArrayBuffer(byteArray.length);
+    var bufferView = new Uint8Array(arrayBuffer);
+    for (var i = 0; i < byteArray.length; i++) {
+      bufferView[i] = byteArray[i];
+    }
+
+    context.decodeAudioData(arrayBuffer, function(buffer) {
+        gbuffer = buffer;
+        source.start(0);
+        //play();
+    });
+}
+
+var source = audio.createBufferSource();
+Object.defineProperty(source, 'buffer', {
+    get: function () {
+        return gbuffer
+    }
+});
+
+source.connect(audio.destination);
+
+source.start(0);
