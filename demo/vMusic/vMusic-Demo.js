@@ -167,7 +167,7 @@ setInterval(function () {
 function GenerateSineWave(hertz) {
     var arr = [],
     volume = 0.2,
-    seconds = 0.248,
+    seconds = 0.25,
     tone = hertz
     for (var i = 0; i < context.sampleRate * seconds; i++) {
         arr[i] = sineWaveAt(i, tone) * volume
