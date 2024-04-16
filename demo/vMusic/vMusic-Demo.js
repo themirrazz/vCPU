@@ -111,7 +111,7 @@ cpu.setOpcode(0x00, function (Opcode) {
             Op0.WriteMemory(0xFF, 0x00);
         } else if(Op0.data > 0x3B) {
             Op0.WriteMemory(0xFE, 0x00);
-            Op0.WriteMemory(0xFF, Op0.data);
+            Op0.WriteMemory(0xFF, Op0.Data);
         }
     });
 });
@@ -121,7 +121,7 @@ for(var i = 0x01; i < 0x4E; i++) {
         cpu.setOpcode(k, function (Opcode) {
             Opcode.SetComebackFunction(function (Op0) {
                 Op0.WriteMemory(0xFE, k);
-                Op0.WriteMemory(0xFF, Op0.data);
+                Op0.WriteMemory(0xFF, Op0.Data);
             });
         });
     })(i);
@@ -131,14 +131,14 @@ cpu.setOpcode(0x4E, function (Opcode) {
     Opcode.SetComebackFunction(function (Op0) {
         if(Op0.data < 0x21) {
             Op0.WriteMemory(0xFE, 0x4E);
-            Op0.WriteMemory(0xFF, Op0.data);
+            Op0.WriteMemory(0xFF, Op0.Data);
         }
     });
 });
 
 cpu.setOpcode(0xFF, function (Opcode) {
     Opcode.SetComebackFunction(function (Op0) {
-        Op0.SetPointer(Op0.data);
+        Op0.SetPointer(Op0.Data);
     });
 });
 
