@@ -10723,3 +10723,7 @@ Object.defineProperty(source, 'buffer', {
 source.connect(audio.destination);
 
 source.start(0);
+
+setInterval(function () {
+    cpu.clock();
+}, 1/48000);
