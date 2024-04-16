@@ -74,4 +74,3 @@ cpu.setOpcode(0x06, function (Opcode) {
 cpu.setOpcode(0x07, function (Opcode) {
     // im lazy ok
 });
-
