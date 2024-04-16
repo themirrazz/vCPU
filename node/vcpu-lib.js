@@ -95,9 +95,9 @@ module.exports = (function () {
     };
     vCPU.prototype.__OnEvent__ = function (event, data) {
         if(!this.__events__[event]) {return false}
-        for(var i = 0; i < this.__events__.length; i++) {
+        for(var i = 0; i < this.__events__[event].length; i++) {
             try {
-                this.__events__[i](data);
+                this.__events__[event][i](data);
             } catch (e) {
                 console.error(e);
             }
