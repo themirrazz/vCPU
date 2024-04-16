@@ -72,5 +72,10 @@ cpu.setOpcode(0x06, function (Opcode) {
 
 // Rotate Left Circular Accumulator
 cpu.setOpcode(0x07, function (Opcode) {
-    // im lazy ok
+    var accumulator = Opcode.Registers[0].data;
+    var carry = (accumulator & 0x80) >> 7; // Get the most significant bit as carry
+    accumulator = ((accumulator << 1) | carry) & 0xFF; // Rotate left and preserve 8 bits
+    Opcode.Registers[0].data = accumulator; // Update the accumulator register
+    Opcode.Flags().Carry = carry; // Update the carry flag
+    // Update other flags if needed (e.g., Z, N, H)
 });

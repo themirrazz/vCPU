@@ -244,6 +244,9 @@ module.exports = (function () {
                         carry: n[7]
                     }
                 },
+                Flags: function () {
+                    return self.Flags;
+                }
             });
         } catch (error) {
             // the manufacturing company did a bad job
