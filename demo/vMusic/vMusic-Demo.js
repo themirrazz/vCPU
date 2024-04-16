@@ -105,7 +105,7 @@ var notes = [
 var int;
 
 cpu.setOpcode(0x00, function (Opcode) {
-    Opcode.SetComeback(function (Op0) {
+    Opcode.SetComebackFunction(function (Op0) {
         if(Op0.data === 0x00) {
             Op0.WriteMemory(0xFE, 0x00);
             Op0.WriteMemory(0xFF, 0x00);
@@ -119,7 +119,7 @@ cpu.setOpcode(0x00, function (Opcode) {
 for(var i = 0x01; i < 0x4E; i++) {
     (function (k) {
         cpu.setOpcode(k, function (Opcode) {
-            Opcode.SetComeback(function (Op0) {
+            Opcode.SetComebackFunction(function (Op0) {
                 Op0.WriteMemory(0xFE, k);
                 Op0.WriteMemory(0xFF, Op0.data);
             });
@@ -128,7 +128,7 @@ for(var i = 0x01; i < 0x4E; i++) {
 }
 
 cpu.setOpcode(0x4E, function (Opcode) {
-    Opcode.SetComeback(function (Op0) {
+    Opcode.SetComebackFunction(function (Op0) {
         if(Op0.data < 0x21) {
             Op0.WriteMemory(0xFE, 0x4E);
             Op0.WriteMemory(0xFF, Op0.data);
@@ -137,7 +137,7 @@ cpu.setOpcode(0x4E, function (Opcode) {
 });
 
 cpu.setOpcode(0xFF, function (Opcode) {
-    Opcode.SetComeback(function (Op0) {
+    Opcode.SetComebackFunction(function (Op0) {
         Op0.SetPointer(Op0.data);
     });
 });
@@ -161,7 +161,7 @@ function sineWaveAt(sampleNumber, tone) {
 };
 
 setInterval(function () {
-    cpu.clock
+    cpu.clock()
 }, tempo/60);
 
 function GenerateSineWave(hertz) {
