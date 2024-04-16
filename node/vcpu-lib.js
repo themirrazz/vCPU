@@ -1,6 +1,6 @@
 // vCPU 0.0.1 Stable Release
 // (c) themirrazz 2024
-module.exports = (function () {
+modules.exports = (function () {
     var vCPUEvent = function () {
         this.trusted = true;
         this.cancelBubbles = false;
@@ -149,6 +149,9 @@ module.exports = (function () {
                 Registers: self.GPRegisters,
                 GetStackPointer: function () {
                     return self.StackPointer
+                },
+                SetStackPointer: function (d) {
+                    return self.StackPointer = d
                 },
                 IncreaseStackPointer: function () {
                     return self.incrementStackPointer()

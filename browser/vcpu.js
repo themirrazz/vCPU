@@ -150,6 +150,9 @@ var vCPU = (function () {
                 GetStackPointer: function () {
                     return self.StackPointer
                 },
+                SetStackPointer: function (d) {
+                    return self.StackPointer = d
+                },
                 IncreaseStackPointer: function () {
                     return self.incrementStackPointer()
                 },

@@ -77,5 +77,6 @@ cpu.setOpcode(0x07, function (Opcode) {
     accumulator = ((accumulator << 1) | carry) & 0xFF; // Rotate left and preserve 8 bits
     Opcode.Registers[0].data = accumulator; // Update the accumulator register
     Opcode.Flags().Carry = carry; // Update the carry flag
-    // Update other flags if needed (e.g., Z, N, H)
 });
+
+cpu.setOpcode(0x07, function (Opcode) {});
