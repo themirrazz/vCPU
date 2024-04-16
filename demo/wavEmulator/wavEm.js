@@ -10692,7 +10692,7 @@ cpu.onmemoryread = function (event) {
 };
 
 var audio = new AudioContext();
-var gbuffer = new Uint8Array[];
+var gbuffer = new Uint8Array();
 
 
 function playByteArray(byte) {
