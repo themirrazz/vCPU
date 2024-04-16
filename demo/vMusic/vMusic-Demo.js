@@ -27,6 +27,7 @@ cpu.onmemorywrite = function (event) {
 };
 
 cpu.onmemoryread = function (event) {
+    alert(JSON.stringify(event))
     var addr = event.address;
     if(addr === 0xFF) {
         return xFF;

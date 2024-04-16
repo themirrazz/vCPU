@@ -119,7 +119,9 @@ var vCPU = (function () {
         }
         var self = this;
         var cb = this.comebackOpcode;
-        var $value = this.onmemoryread(this.pointer)
+        var mr = new vCPUEvent();
+        mr.address = this.pointer;
+        var $value = this.onmemoryread(mr)
         var op = cb || this.opcodes[$value];
         if(!op) {
             op = function () {};
