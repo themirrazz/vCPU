@@ -10661,12 +10661,12 @@ WAV.forEach(CHUNK => {
 // LD d8,(d16)
 cpu.setOpcode(0x92, function(Opcode) {
     Opcode.SetComebackFunction(function (c0) {
-        var d8 = c0.value;
+        var d8 = c0.Data;
         Opcode.SetComebackFunction(function (c1) {
-            var k = c1.value.toString('16');
+            var k = c1.Data.toString('16');
             if(k.length === 1) { k = '0'+k }
             Opcode.SetComebackFunction(function (c2) {
-                var q = c1.value.toString('16');
+                var q = c2.Data.toString('16');
                 if(q.length === 1) { k = '0'+k }
                 c2.WriteMemory(Number('0x'+k+q), d8);
             });
