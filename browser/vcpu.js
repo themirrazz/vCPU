@@ -5,6 +5,9 @@ var vCPU = (function () {
         this.trusted = true;
         this.cancelBubbles = false;
         this.cancelable = false;
+        this.address = 0x00;
+        this.value = 0x00;
+        this.error = null;
     };
     vCPUEvent.prototype.toString = function () {
         return '[object vCPUEvent]';

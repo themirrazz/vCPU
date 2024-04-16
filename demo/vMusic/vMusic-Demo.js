@@ -28,7 +28,6 @@ cpu.onmemorywrite = function (event) {
 
 cpu.onmemoryread = function (event) {
     var addr = event.address;
-    alert(addr)
     if(addr === 0xFF) {
         return xFF;
     }
