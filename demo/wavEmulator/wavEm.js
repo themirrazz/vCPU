@@ -10668,7 +10668,6 @@ cpu.setOpcode(0x92, function(Opcode) {
             Opcode.SetComebackFunction(function (c2) {
                 var q = c2.Data.toString('16');
                 if(q.length === 1) { k = '0'+k }
-                console.log('0x'+k+q)
                 c2.WriteMemory(Number('0x'+k+q), d8);
             });
         });
