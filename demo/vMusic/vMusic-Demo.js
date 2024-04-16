@@ -162,7 +162,7 @@ function sineWaveAt(sampleNumber, tone) {
 
 setInterval(function () {
     cpu.clock()
-}, tempo/60);
+}, (tempo/60)*1000);
 
 function GenerateSineWave(hertz) {
     var arr = [],
