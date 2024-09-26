@@ -257,10 +257,6 @@ var vCPU = (function () {
                 }
             });
         } catch (error) {
-            // the manufacturing company did a bad job
-            this.clock = function () {
-                throw new TypeError("'clock' cannot be called on type 'FkedUpVirtualCPU', buy a new one");
-            }
             console.error(error);
             var event = new vCPUEvent();
             event.error = error;
@@ -272,6 +268,8 @@ var vCPU = (function () {
                 // does it matter? the cpu's already fried www
                 return;
             }
+            // just in case
+            throw (error);
         }
         this.pointer ++;
         if(this.pointer > Math.pow(2,this.addressLines)) {
