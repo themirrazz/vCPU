@@ -1,5 +1,5 @@
-// vCPU 0.0.1 Stable Release
-// (c) themirrazz 2024
+// vCPU 0.0.2 Stable Release
+// (c) themirrazz 2025
 var vCPU = (function () {
     var vCPUEvent = function () {
         this.trusted = true;
@@ -14,11 +14,11 @@ var vCPU = (function () {
     }
     vCPUEvent.prototype.preventDefault = function () {
         // don't. break. anything.
-        return 'やった';
+        return void(0)
     };
     vCPUEvent.prototype.stopPropagation = function () {
         // don't. break. anything.
-        return 'やった';
+        return void(0)
     };
     var vRegister = function () {
         this.data = 0x00;
