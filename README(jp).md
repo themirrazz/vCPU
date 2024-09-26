@@ -1,3 +1,4 @@
+<!--
 # vCPUビシピユー
 
 ## vCPUは何ですか？
@@ -20,3 +21,4 @@ This software library is licensed under the GNU GPL v3.0 license. You can learn 
 
 ## 日本語を話しますか？
 はい、ちょっと日本語を話す。英語を話しないなら、「README(jp).md」を読んでください([これ](/README(jp).md)
+-->
